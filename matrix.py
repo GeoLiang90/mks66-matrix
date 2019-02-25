@@ -12,12 +12,13 @@ import math
 #print the matrix such that it looks like
 #the template in the top comment
 def print_matrix( matrix ):
-    for r in range(len(matrix)):
+    for y in range(len(matrix[0])):
         out = ""
-        for c in range(len(matrix[r])):
-            out += str(matrix[r][c]) + "\t"
-            if (c == len(matrix[r]) - 1):
+        for x in range(len(matrix)):
+            out += str(matrix[x][y]) + "\t"
+            if (x == len(matrix) - 1):
                 print(out)
+    print("")
     pass
 
 #turn the paramter matrix into an identity matrix
@@ -32,12 +33,25 @@ def ident( matrix ):
                 matrix[r][c] = 0
     pass
 
+def getCol(matrix,col):
+    ret = []
+    for r in range(len(matrix)):
+        for c in range(len(matrix[0])):
+            if r == col:
+                ret.append(matrix[r][c])
+    return ret
 #multiply m1 by m2, modifying m2 to be the product
 #m1 * m2 -> m2
 def matrix_mult( m1, m2 ):
-    for r in range(4):
-        for c in range(len(m2[r])):
-            m2[c][r] = m1[r][c]
+    for c in range(len(m2)):
+        column = getCol(m2, c)
+
+        for r in range(len(m2[0])):
+            sum = 0
+
+            for val in range(4):
+                sum += m1[val][r] * column[val]
+            m2[c][r] = sum
     pass
 
 
